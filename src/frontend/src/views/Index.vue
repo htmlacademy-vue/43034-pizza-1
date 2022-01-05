@@ -29,9 +29,10 @@
                 <label
                   v-for="dough in doughs"
                   :key="dough.id"
-                  :class="`dough__input dough__input--${
-                    doughsClass.find((elem) => elem.id === dough.id).value
-                  }`"
+                  :class="`dough__input dough__input--${addClass(
+                    doughsClass,
+                    dough.id
+                  )}`"
                 >
                   <input
                     type="radio"
@@ -53,9 +54,10 @@
                 <label
                   v-for="size in sizes"
                   :key="size.id"
-                  :class="`diameter__input diameter__input--${
-                    sizesClass.find((elem) => elem.id === size.id).value
-                  }`"
+                  :class="`diameter__input diameter__input--${addClass(
+                    sizesClass,
+                    size.id
+                  )}`"
                 >
                   <input
                     type="radio"
@@ -99,11 +101,10 @@
                       class="ingredients__item"
                     >
                       <span
-                        :class="`filling filling--${
-                          ingredientsClass.find(
-                            (elem) => elem.id === ingredient.id
-                          ).value
-                        }`"
+                        :class="`filling filling--${addClass(
+                          ingredientsClass,
+                          ingredient.id
+                        )}`"
                         >{{ ingredient.name }}</span
                       >
                       <div class="counter counter--orange ingredients__counter">
@@ -200,6 +201,11 @@ export default {
       ],
       sauces: pizza.sauces,
     };
+  },
+  methods: {
+    addClass(arrName, id) {
+      return arrName.find((elem) => elem.id === id).value;
+    },
   },
 };
 </script>
