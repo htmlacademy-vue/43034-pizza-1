@@ -3,20 +3,24 @@
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
       <div class="sheet__content dough">
-        <RadioButton
+        <label
           v-for="dough in doughsData"
           :key="dough.id"
-          :label-class="`dough__input dough__input--${addClass(
+          :class="`dough__input dough__input--${addClass(
             doughsClass,
             dough.id
           )}`"
-          radio-name="dought"
-          :radio-value="dough.id"
-          title-tag="b"
-          :title="dough.name"
-          :description="dough.description"
-          visually-hidden
-        />
+          @click="$emit('change-dough', addClass(doughsClass, dough.id))"
+        >
+          <RadioButton
+            radio-name="dought"
+            :radio-value="dough.id"
+            visually-hidden
+            :checked="dough.id === 1"
+          />
+          <b>{{ dough.name }}</b>
+          <span>{{ dough.description }}</span>
+        </label>
       </div>
     </div>
   </div>

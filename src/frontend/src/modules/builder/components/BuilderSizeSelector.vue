@@ -3,18 +3,23 @@
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите размер</h2>
       <div class="sheet__content diameter">
-        <RadioButton
+        <label
           v-for="size in sizesData"
           :key="size.id"
-          :label-class="`diameter__input diameter__input--${addClass(
+          :class="`diameter__input diameter__input--${addClass(
             sizesClass,
             size.id
           )}`"
-          radio-name="diameter"
-          :radio-value="size.id"
-          :title="size.name"
-          visually-hidden
-        />
+          @click="$emit('change-size', addClass(sizesClass, size.id))"
+        >
+          <RadioButton
+            radio-name="diameter"
+            :radio-value="size.id"
+            visually-hidden
+            :checked="size.id === 1"
+          />
+          <span>{{ size.name }}</span>
+        </label>
       </div>
     </div>
   </div>

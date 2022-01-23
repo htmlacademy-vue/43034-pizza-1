@@ -9,7 +9,7 @@
       />
     </label>
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
+      <div :class="`pizza pizza--foundation--${setDough}-${sauce}`">
         <div class="pizza__wrapper">
           <div class="pizza__filling pizza__filling--ananas"></div>
           <div class="pizza__filling pizza__filling--bacon"></div>
@@ -28,6 +28,25 @@ export default {
   name: "BuilderPizzaView",
   components: {
     BuilderPriceCounter,
+  },
+  props: {
+    dough: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: true,
+    },
+    sauce: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    setDough() {
+      return this.dough === "light" ? "small" : "big";
+    },
   },
 };
 </script>

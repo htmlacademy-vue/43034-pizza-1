@@ -5,14 +5,19 @@
       <div class="sheet__content ingredients">
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
-          <RadioButton
+          <label
             v-for="sauce in saucesData"
             :key="sauce.id"
-            label-class="radio ingredients__input"
-            radio-name="sauce"
-            :radio-value="sauce.id"
-            :title="sauce.name"
-          />
+            class="radio ingredients__input"
+            @click="$emit('change-sauce', addClass(saucesClass, sauce.id))"
+          >
+            <RadioButton
+              radio-name="sauce"
+              :radio-value="sauce.id"
+              :checked="sauce.id === 1"
+            />
+            <span>{{ sauce.name }}</span>
+          </label>
         </div>
         <div class="ingredients__filling">
           <p>Начинка:</p>
@@ -65,6 +70,10 @@ export default {
         { id: 13, value: "mozzarella" },
         { id: 14, value: "parmesan" },
         { id: 15, value: "blue_cheese" },
+      ],
+      saucesClass: [
+        { id: 1, value: "tomato" },
+        { id: 2, value: "creamy" },
       ],
     };
   },

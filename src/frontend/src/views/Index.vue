@@ -4,13 +4,20 @@
       <form action="#" method="post">
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
-          <BuilderDoughSelector :doughs-data="doughs" />
-          <BuilderSizeSelector :sizes-data="sizes" />
+          <BuilderDoughSelector
+            :doughs-data="doughs"
+            @change-dough="dough = $event"
+          />
+          <BuilderSizeSelector
+            :sizes-data="sizes"
+            @change-size="size = $event"
+          />
           <BuilderIngredientsSelector
             :sauces-data="sauces"
+            @change-sauce="sauce = $event"
             :ingredients-data="ingredients"
           />
-          <BuilderPizzaView />
+          <BuilderPizzaView :dough="dough" :size="size" :sauce="sauce" />
         </div>
       </form>
     </main>
@@ -38,6 +45,9 @@ export default {
       sizes: pizza.sizes,
       ingredients: pizza.ingredients,
       sauces: pizza.sauces,
+      size: "small",
+      dough: "light",
+      sauce: "tomato",
     };
   },
 };
