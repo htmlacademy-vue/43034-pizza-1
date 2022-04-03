@@ -31,7 +31,12 @@
                 :item-name="ingredient.name"
                 :item-class="addClass(ingredientsClass, ingredient.id)"
               />
-              <ItemCounter />
+              <ItemCounter
+                :data-ingredient="addClass(ingredientsClass, ingredient.id)"
+                @ingredientsCounterHandler="ingredientsCounterHandler"
+                :ref="`prod${ingredient.id}`"
+                @click="inputValue($event, ingredient.id)"
+              />
             </li>
           </ul>
         </div>
@@ -75,6 +80,8 @@ export default {
         { id: 1, value: "tomato" },
         { id: 2, value: "creamy" },
       ],
+      count: null,
+      dataIngredients: [],
     };
   },
   props: {
@@ -90,6 +97,40 @@ export default {
   methods: {
     addClass(arrName, id) {
       return arrName.find((elem) => elem.id === id).value;
+    },
+    ingredientsCounterHandler(value) {
+      this.$emit("ingredientsCounterHandler", value);
+    },
+    inputValue(value, id) {
+      const ingredientName =
+        this.$refs["prod" + id][0].$attrs["data-ingredient"];
+      let arrDataIngredients = this.dataIngredients;
+      if (!this.dataIngredients.length) {
+        this.dataIngredients.push({
+          value: ingredientName,
+          count: value,
+        });
+      }
+
+      if (arrDataIngredients.length > 0) {
+        let isHasIngredient = arrDataIngredients.find((post) => {
+          return post.value === ingredientName;
+        });
+        if (!isHasIngredient) {
+          this.dataIngredients.push({
+            value: ingredientName,
+            count: value,
+          });
+        } else {
+          arrDataIngredients.find((post) => {
+            if (post.value === ingredientName) {
+              post.count = value;
+            }
+          });
+          this.dataIngredients = arrDataIngredients;
+        }
+      }
+      this.$emit("data-ingredients", this.dataIngredients);
     },
   },
 };

@@ -11,9 +11,13 @@
     <div class="content__constructor">
       <div :class="`pizza pizza--foundation--${setDough}-${sauce}`">
         <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+          <template v-if="ingredientsList">
+            <div
+              v-for="(ingredient, index) in ingredientsList"
+              :class="`pizza__filling ${ingredientsClass(ingredient, index)}`"
+              :key="index"
+            ></div>
+          </template>
         </div>
       </div>
     </div>
@@ -42,10 +46,26 @@ export default {
       type: String,
       required: true,
     },
+    ingredientsList: {
+      type: Array,
+    },
   },
   computed: {
     setDough() {
       return this.dough === "light" ? "small" : "big";
+    },
+  },
+  methods: {
+    ingredientsClass(elem, index) {
+      if (index >= 0) {
+        if (elem.count === 1) {
+          return "pizza__filling--" + elem.value;
+        } else if (elem.count === 2) {
+          return "pizza__filling--" + elem.value + " pizza__filling--second";
+        } else if (elem.count === 3) {
+          return "pizza__filling--" + elem.value + " pizza__filling--third";
+        }
+      }
     },
   },
 };

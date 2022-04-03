@@ -13,11 +13,17 @@
             @change-size="size = $event"
           />
           <BuilderIngredientsSelector
+            :ingredients-data="ingredients"
             :sauces-data="sauces"
             @change-sauce="sauce = $event"
-            :ingredients-data="ingredients"
+            @data-ingredients="ingredientsInfo = $event"
           />
-          <BuilderPizzaView :dough="dough" :size="size" :sauce="sauce" />
+          <BuilderPizzaView
+            :dough="dough"
+            :size="size"
+            :sauce="sauce"
+            :ingredients-list="ingredientsInfo"
+          />
         </div>
       </form>
     </main>
@@ -48,6 +54,7 @@ export default {
       size: "small",
       dough: "light",
       sauce: "tomato",
+      ingredientsInfo: null,
     };
   },
 };
