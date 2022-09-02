@@ -113,8 +113,8 @@ export default {
       }
 
       if (arrDataIngredients.length > 0) {
-        let isHasIngredient = arrDataIngredients.find((post) => {
-          return post.value === ingredientName;
+        let isHasIngredient = arrDataIngredients.find((ingredient) => {
+          return ingredient.value === ingredientName;
         });
         if (!isHasIngredient) {
           this.dataIngredients.push({
@@ -122,12 +122,14 @@ export default {
             count: value,
           });
         } else {
-          arrDataIngredients.find((post) => {
-            if (post.value === ingredientName) {
-              post.count = value;
+          arrDataIngredients.find((ingredient) => {
+            if (ingredient.value === ingredientName) {
+              ingredient.count = value;
             }
           });
-          this.dataIngredients = arrDataIngredients;
+          this.dataIngredients = arrDataIngredients.filter(
+            (item) => item.count > 0
+          );
         }
       }
       this.$emit("data-ingredients", this.dataIngredients);

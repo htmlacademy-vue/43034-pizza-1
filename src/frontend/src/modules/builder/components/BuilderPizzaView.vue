@@ -6,6 +6,7 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
+        v-model="namePizza"
       />
     </label>
     <div class="content__constructor">
@@ -21,7 +22,7 @@
         </div>
       </div>
     </div>
-    <BuilderPriceCounter />
+    <BuilderPriceCounter :is-disable-btn="isDisableBtn()" />
   </div>
 </template>
 
@@ -50,6 +51,11 @@ export default {
       type: Array,
     },
   },
+  data() {
+    return {
+      namePizza: "",
+    };
+  },
   computed: {
     setDough() {
       return this.dough === "light" ? "small" : "big";
@@ -66,6 +72,11 @@ export default {
           return "pizza__filling--" + elem.value + " pizza__filling--third";
         }
       }
+    },
+    isDisableBtn() {
+      return this.namePizza !== "" && this.ingredientsList?.length > 0
+        ? false
+        : true;
     },
   },
 };
