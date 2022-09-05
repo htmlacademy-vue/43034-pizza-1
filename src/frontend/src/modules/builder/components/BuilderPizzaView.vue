@@ -22,7 +22,10 @@
         </div>
       </div>
     </div>
-    <BuilderPriceCounter :is-disable-btn="isDisableBtn()" />
+    <BuilderPriceCounter
+      :total-price="totalPrice"
+      :is-disable-btn="isDisableBtn()"
+    />
   </div>
 </template>
 
@@ -54,11 +57,34 @@ export default {
   data() {
     return {
       namePizza: "",
+      prices: {
+        dough: {
+          light: 200,
+          large: 300,
+        },
+        sauce: {
+          tomato: 50,
+          creamy: 50,
+        },
+        size: {
+          small: 100,
+          normal: 200,
+          big: 300,
+        },
+      },
     };
   },
   computed: {
     setDough() {
       return this.dough === "light" ? "small" : "big";
+    },
+
+    totalPrice() {
+      return (
+        this.prices.dough[this.dough] +
+        this.prices.sauce[this.sauce] +
+        this.prices.size[this.size]
+      );
     },
   },
   methods: {

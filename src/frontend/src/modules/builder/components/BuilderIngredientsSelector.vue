@@ -33,8 +33,9 @@
               />
               <ItemCounter
                 :data-ingredient="addClass(ingredientsClass, ingredient.id)"
-                @ingredientsCounterHandler="ingredientsCounterHandler"
+                :data-price="ingredient.price"
                 :ref="`prod${ingredient.id}`"
+                @ingredientsCounterHandler="ingredientsCounterHandler"
                 @click="inputValue($event, ingredient.id)"
               />
             </li>
@@ -104,11 +105,13 @@ export default {
     inputValue(value, id) {
       const ingredientName =
         this.$refs["prod" + id][0].$attrs["data-ingredient"];
+      const ingredientPrice = this.$refs["prod" + id][0].$attrs["data-price"];
       let arrDataIngredients = this.dataIngredients;
       if (!this.dataIngredients.length) {
         this.dataIngredients.push({
           value: ingredientName,
           count: value,
+          price: ingredientPrice,
         });
       }
 
