@@ -123,6 +123,7 @@ export default {
           this.dataIngredients.push({
             value: ingredientName,
             count: value,
+            price: ingredientPrice,
           });
         } else {
           arrDataIngredients.find((ingredient) => {

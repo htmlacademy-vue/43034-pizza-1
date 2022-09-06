@@ -80,10 +80,19 @@ export default {
     },
 
     totalPrice() {
+      let sumPriceIngredients = 0;
+
+      if (this.ingredientsList) {
+        sumPriceIngredients = this.ingredientsList.reduce((acc, ingredient) => {
+          const sumPrice = acc + ingredient.price * ingredient.count;
+          return sumPrice;
+        }, 0);
+      }
       return (
         this.prices.dough[this.dough] +
         this.prices.sauce[this.sauce] +
-        this.prices.size[this.size]
+        this.prices.size[this.size] +
+        sumPriceIngredients
       );
     },
   },
